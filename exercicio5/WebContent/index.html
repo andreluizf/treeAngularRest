@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AngularJS UI Tree demo</title>
+
+<!-- Stylesheets -->
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="angular/angular-ui-tree.min.css">
+<link rel="stylesheet" href="css/style.css">
+<!-- Latest compiled and minified CSS -->
+
+<script src="jquery/jquery.min.js"></script>
+<!-- Optional theme -->
+
+
+<!-- Latest compiled and minified JavaScript -->
+
+</head>
+<body ng-app="treeApp" ng-controller="MainCtrl">
+
+
+	<div class="modal fade" id="addPlano" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<form name="userForm" ng-submit="submitForm(userForm.$valid)"
+						novalidate>
+						<input type="hidden" name="parent" class="form-control"
+							ng-model="plano.parent">
+						<div class="form-group"
+							ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+							<label>Nome*</label> <input type="text" name="name"
+								class="form-control" ng-model="plano.nome" required>
+							<p ng-show="userForm.name.$invalid && !userForm.name.$pristine"
+								class="help-block">Nome obrigatório.</p>
+						</div>
+
+						<div class="form-group"
+							ng-class="{ 'has-error' :userForm.dataInicio.$invalid && !userForm.dataInicio.$pristine }">
+							<label>Data 1</label> <input type="date" name="dataInicio"
+								min="2010-01-01" placeholder="yyyy-MM-dd" class="form-control"
+								ng-model="plano.dataInicio" required>
+							<p
+								ng-show="userForm.dataInicio.$invalid && !userForm.dataInicio.$pristine"
+								class="help-block">Data inválida.</p>
+						</div>
+						<div class="form-group"
+							ng-class="{ 'has-error' :userForm.dataFim.$invalid && !userForm.dataFim.$pristine }">
+							<label>Data 2</label> <input type="date" name="dataFim"
+								min="2010-01-01" placeholder="yyyy-MM-dd" class="form-control"
+								ng-model="plano.dataFim" required>
+							<p
+								ng-show="userForm.dataFim.$invalid && !userForm.dataFim.$pristine"
+								class="help-block">Data inválida.</p>
+						</div>
+					</form>
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary"
+						ng-disabled="userForm.$invalid"
+						ng-click="submitForm(userForm.$valid)">Save changes</button>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-lg-6">
+
+<h3>Controle de Planos</h3>
+						<!-- Nested list template -->
+						<script type="text/ng-template" id="items_renderer.html">
+
+                <div ui-tree-handle>
+
+
+                  <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+                  Descrição: {{item.nome}}
+<br>
+<span style="margin-left:40px;font-size:11px">Data Inicial: {{item.dataInicio}}</span>
+<br>
+<span style="margin-left:40px;font-size:11px">Data Final: {{item.dataFim}}</span>
+
+                  <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+                </div>
+                <ol ui-tree-nodes="options" ng-model="item.items" ng-class="{hidden: collapsed}">
+                  <li ng-repeat="item in item.items" ui-tree-node ng-include="'items_renderer.html'">
+                  </li>
+                </ol>
+              </script>
+						<div ui-tree="options">
+							<ol ui-tree-nodes ng-model="listEquipe">
+								<li ng-repeat="item in listEquipe" ui-tree-node
+									ng-include="'items_renderer.html'"></li>
+							</ol>
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+
+	<!-- JavaScript -->
+	<!--[if IE 8]>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.min.js"></script>
+  <![endif]-->
+	<script src="angular/angular.min.js"></script>
+	<script src="angular/angular-ui-tree.js"></script>
+	<script src="js/controller.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

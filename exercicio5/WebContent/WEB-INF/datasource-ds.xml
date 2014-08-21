@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+  <datasource jndi-name="java:/PostgresDS" enabled="true" use-java-context="true" 
+        pool-name="postgres-ds-pool">
+    <connection-url>jdbc:postgresql://localhost:5432/postgres</connection-url>
+    <driver>postgres</driver>
+    <security>
+      <user-name>postgres</user-name>
+      <password>postgres</password>
+    </security>
+  </datasource>
+</datasources>
